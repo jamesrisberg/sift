@@ -1,0 +1,63 @@
+{
+  "version": 1,
+  "settings": [
+    {
+      "key": "defaultFolder",
+      "title": "Default folder",
+      "type": "path",
+      "help": "Folder Sift opens at launch. Empty reopens the last folder."
+    },
+    {
+      "key": "collisionPolicy",
+      "title": "When names collide",
+      "type": "enum",
+      "options": [
+        {"value": "keepBoth", "title": "Keep both"},
+        {"value": "replace", "title": "Replace (old item goes to the Trash)"},
+        {"value": "skip", "title": "Skip"}
+      ],
+      "default": "keepBoth"
+    },
+    {
+      "key": "showHidden",
+      "title": "Show hidden files",
+      "type": "bool",
+      "default": false
+    },
+    {
+      "key": "launchMode",
+      "title": "Open at launch",
+      "type": "enum",
+      "options": [
+        {"value": "dock", "title": "Dock strip"},
+        {"value": "full", "title": "Full Sift"},
+        {"value": "last", "title": "As last used"}
+      ],
+      "default": "dock",
+      "help": "How Sift appears when it starts. The menu bar item and Option-/ open whichever mode Sift is in."
+    },
+    {
+      "key": "dock.position",
+      "title": "Dock strip position",
+      "type": "enum",
+      "options": [
+        {"value": "bottom", "title": "Bottom"},
+        {"value": "top", "title": "Top"},
+        {"value": "left", "title": "Left"},
+        {"value": "right", "title": "Right"},
+        {"value": "topLeft", "title": "Top left"},
+        {"value": "topRight", "title": "Top right"},
+        {"value": "bottomLeft", "title": "Bottom left"},
+        {"value": "bottomRight", "title": "Bottom right"}
+      ],
+      "default": "bottom",
+      "help": "Where the dock strip sits: the middle of an edge, or a corner (the strip runs up or down the side from it). Dragging the strip snaps it to the nearest one. It keeps clear of the MacHUD dock."
+    },
+    {
+      "key": "rulesAutoApply",
+      "title": "Apply rules automatically in watched folders",
+      "type": "bool",
+      "default": false
+    }
+  ]
+}

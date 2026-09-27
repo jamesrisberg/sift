@@ -1,0 +1,19 @@
+{
+  "id": "xyz.machud.sift",
+  "name": "Sift",
+  "socket": "sift",
+  "panels": [
+    {
+      "id": "browser",
+      "title": "Sift",
+      "symbol": "square.grid.2x2",
+      "defaultSize": [900, 560],
+      "compactSize": [340, 64],
+      "kind": "windowed",
+      "order": 1,
+      "capabilities": ["acceptsFileDrop"],
+      "verbs": ["show", "hide", "toggle", "frame", "mode", "navigate", "reveal", "send", "drop"],
+      "settingsSchema": "settings.json"
+    }
+  ]
+}
