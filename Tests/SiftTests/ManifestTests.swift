@@ -36,7 +36,11 @@ final class ManifestTests: XCTestCase {
         XCTAssertEqual(try kind(#"{"id": "browser", "kind": "windowed"}"#), .windowed)
         XCTAssertEqual(try kind(#"{"id": "peek", "kind": "hover"}"#), .hover)
         XCTAssertEqual(try kind(#"{"id": "old"}"#), .windowed, "manifests from before 0.3 are windowed")
-        XCTAssertEqual(try kind(#"{"id": "x", "kind": "floating"}"#), .windowed, "HUDKit 0.4 reads unknown kinds as windowed")
+        XCTAssertEqual(try kind(#"{"id": "x", "kind": "floating"}"#), .unknown("floating"), "HUDKit 0.3 keeps an unknown kind, never reads it as windowed")
+        XCTAssertEqual(try kind(#"{"id": "w", "kind": "widget"}"#), .widget)
+        let unknown = try JSONDecoder().decode(HUDManifest.Panel.self, from: Data(#"{"id": "x", "kind": "floating"}"#.utf8))
+        XCTAssertFalse(unknown.kind.isKnown)
+        XCTAssertTrue(HUDManifest.dockSorted([unknown]).isEmpty, "an unknown kind is not a dock panel")
 
         let manifest = try HUDManifest.decode(Data(contentsOf: resources.appending(path: HUDManifest.fileName)))
         let roundTrip = try HUDManifest.decode(manifest.encoded())
