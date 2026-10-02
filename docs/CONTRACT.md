@@ -80,7 +80,7 @@ in UserDefaults (domain `xyz.machud.sift`, or a separate suite under `SIFT_HOME`
 
 | Flag | Effect |
 |---|---|
-| `--snapshot <path.png>` | show the panel and write a PNG of it after 3 s; unlike the convention, Sift keeps running afterwards (`sift quit`) |
+| `--snapshot <path.png>` | show the panel and write a PNG of it after 3 s; unlike the convention, Sift keeps running afterwards (`sift quit`); serves no control socket, announces nothing, registers no hotkey and adds no menu bar item, so it never touches a running instance |
 | `--snapshot-mode compact\|full` | the mode to picture |
 | `--dock-position <position>` | the dock strip position to picture |
 | `--drawer <folder>` | dock mode with that folder's drawer out |

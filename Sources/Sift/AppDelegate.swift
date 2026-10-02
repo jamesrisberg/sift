@@ -14,21 +14,25 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         HUDEditMenu.install(appName: "Sift")
         model = AppModel()
         panel = PanelController(model: model)
-        control = ControlHost(model: model, panel: panel)
-        control.start()
-        setupStatusItem()
-        // While MacHUD runs, its menu hosts this one and the icon hides (HUDKit menu bar consolidation).
-        control.router.menuProvider = { [weak self] in self?.statusItem?.menu }
-        // The `menuBar.consumed` opt-out lives in <data directory>/menubar.json, so it follows SIFT_HOME.
-        HUDStatusItemPolicy.attach(statusItem, appID: control.manifest.id, store: .home(AppEnvironment.dataDirectory))
-        if AppEnvironment.hotKeysEnabled,
-           HUDHotKeyCenter.shared.register(Self.hotKey, onPress: { [weak self] in self?.panel.toggle() }) == nil {
-            model.flash("Option-/ is taken by another app; use the menu bar icon", error: true)
-        }
-
         let args = CommandLine.arguments
         func value(_ flag: String) -> String? {
             args.firstIndex(of: flag).flatMap { args.indices.contains($0 + 1) ? args[$0 + 1] : nil }
+        }
+        // A `--snapshot` run only draws: no control socket (a running app owns that name), no
+        // announcement, no hotkey, no menu bar item.
+        let snapshotting = value("--snapshot") != nil
+        control = ControlHost(model: model, panel: panel)
+        if !snapshotting {
+            control.start()
+            setupStatusItem()
+            // While MacHUD runs, its menu hosts this one and the icon hides (HUDKit menu bar consolidation).
+            control.router.menuProvider = { [weak self] in self?.statusItem?.menu }
+            // The `menuBar.consumed` opt-out lives in <data directory>/menubar.json, so it follows SIFT_HOME.
+            HUDStatusItemPolicy.attach(statusItem, appID: control.manifest.id, store: .home(AppEnvironment.dataDirectory))
+            if AppEnvironment.hotKeysEnabled,
+               HUDHotKeyCenter.shared.register(Self.hotKey, onPress: { [weak self] in self?.panel.toggle() }) == nil {
+                model.flash("Option-/ is taken by another app; use the menu bar icon", error: true)
+            }
         }
         // `--open <folder>`: start there (used with --snapshot).
         if let folder = value("--open") { model.navigateActivePane(to: RulePaths.url(folder)) }
