@@ -8,6 +8,9 @@ All notable changes to Sift are documented here. The format follows
 
 ## [0.3.3] - 2026-11-14
 
+### Fixed
+- Reopening the browser during a hide keeps its position beside the dock.
+
 ### Changed
 - Updated shared window handling with HUDKit 0.5.3.
 

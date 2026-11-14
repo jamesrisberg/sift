@@ -239,8 +239,8 @@ final class PanelController: NSObject, NSWindowDelegate, DockActions {
                 panel.setFrame(target, display: false)
                 panel.orderFrontRegardless()
             }
-            // Mid-hide the panel may be part-way toward the dock: bring it back as it fades in.
-            HUDAnimation.animate(panel, to: panel.frame == target ? nil : target, alpha: 1, duration: motion.duration,
+            // Replace a pending hide's frame animation even before it has moved the window.
+            HUDAnimation.animate(panel, to: target, alpha: 1, duration: motion.duration,
                                  timing: HUDAnimation.revealTiming, completion: finish)
         }
         // Click/summon shows bring the browser (a normal window) forward and activate Sift;
