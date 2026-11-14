@@ -11,6 +11,10 @@ All notable changes to Sift are documented here. The format follows
 ### Changed
 - Updated shared window handling with HUDKit 0.5.2.
 
+### Fixed
+- Tags without a stored color, or with an invalid color, keep their names and use the
+  standard Finder color when their name matches one.
+
 ## [0.3.1] - 2026-10-13
 
 ### Changed

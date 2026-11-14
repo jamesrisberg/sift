@@ -60,7 +60,7 @@ public enum FileTags {
                 for entry in list {
                     let parts = entry.split(separator: "\n", maxSplits: 1).map(String.init)
                     guard let name = parts.first else { continue }
-                    result[name] = parts.count > 1 ? Color(rawValue: Int(parts[1]) ?? 0) ?? .none : .none
+                    result[name] = parts.count > 1 ? Color(rawValue: Int(parts[1]) ?? 0) ?? Color.none : Color.none
                 }
             }
         }

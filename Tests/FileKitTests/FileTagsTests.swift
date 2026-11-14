@@ -15,6 +15,20 @@ final class FileTagsTests: TempDirTestCase {
         XCTAssertEqual(try FileTags.read(a), [])
     }
 
+    func testMissingAndInvalidTagColorsKeepTheirNames() throws {
+        let file = try makeFile("tag-colors.txt")
+        let data = try PropertyListSerialization.data(
+            fromPropertyList: ["Red", "Work", "Blue\n99", "Custom\n99", "Green\n2"],
+            format: .binary, options: 0)
+        let written = data.withUnsafeBytes {
+            setxattr(file.path, FileTags.attributeName, $0.baseAddress, data.count, 0, 0)
+        }
+        XCTAssertEqual(written, 0)
+        XCTAssertEqual(FileTags.colors(of: file), [
+            "Red": .red, "Work": .none, "Blue": .blue, "Custom": .none, "Green": .green,
+        ])
+    }
+
     func testSetTagsIsUndoable() throws {
         let a = try makeFile("a.txt")
         let b = try makeFile("b.txt")
